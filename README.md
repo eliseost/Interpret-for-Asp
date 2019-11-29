@@ -31,7 +31,8 @@ beregne resultatverdien. Man må også sjekke at uttrykket ikke har typefeil.
 
 1.4.4 Del 4: Full interpretering
 Siste del er å kunne evaluere alle mulige Asp-programmer, dvs programmer
-med funksjonsdefinisjoner samt setninger med løkker, tester og uttrykk
+med funksjonsdefinisjoner samt setninger med løkker, tester og uttrykk. 
+Del 4 er ikke ferdig på dette tidspunkt. 
 
 For å kjøre interpreten skrives: $ java -jar asp.jar filnavn.asp
 Testprogrammer finnes her: http://inf2100.at.ifi.uio.no/oblig/
