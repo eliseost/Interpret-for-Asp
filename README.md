@@ -34,5 +34,7 @@ Siste del er å kunne evaluere alle mulige Asp-programmer, dvs programmer
 med funksjonsdefinisjoner samt setninger med løkker, tester og uttrykk. 
 Del 4 er ikke ferdig på dette tidspunkt. 
 
-For å kjøre interpreten skrives: $java -jar asp.jar + [-test{expr|parser|scanner}] filename.asp"
+For å kjøre interpreten skrives: $java -jar asp.jar [-test{expr|parser|scanner}] filename.asp, 
+alt ettersom det er, scanner, parser eller utrykk som vil testes. 
+
 Testprogrammer finnes her: http://inf2100.at.ifi.uio.no/oblig/
