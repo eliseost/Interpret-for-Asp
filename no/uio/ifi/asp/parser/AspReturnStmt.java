@@ -34,7 +34,9 @@ public class AspReturnStmt extends AspSyntax{
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-//-- Must be changed in part 4:
-return null;
+    RuntimeValue v = expr.eval(curScope);
+    trace("return " + v.showInfo());
+    throw new RuntimeReturnValue(v, lineNum);
+    //return null;
   }
 }

@@ -16,10 +16,23 @@ public class RuntimeListDisplay extends RuntimeValue {
     protected String typeName() {
 	     return "list";
     }
+    @Override
+    public ArrayList<RuntimeValue> getList(){
+      return list;
+    }
 
    @Override
-    public String toString() {
+    public String showInfo() {
 	     return list.toString();
+    }
+
+    @Override
+    public String toString(){
+      return list.toString();
+    }
+    @Override
+    public int listSize(){
+      return list.size();
     }
 
     @Override
@@ -58,32 +71,59 @@ public class RuntimeListDisplay extends RuntimeValue {
       runtimeError("Type error for *.", where);
       return null;
     }
-
+    @Override
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where){
+
       if(v instanceof RuntimeIntValue){
         Integer i = (int) (long) v.getIntValue("[...]", where);
-        
-        if(i < list.size()-1){
+        //Det sto -1 etter list.size()
+
+        if(i < list.size()){
           if(list.get(i) instanceof RuntimeIntValue){
             return new RuntimeIntValue(list.get(i).getIntValue("[...]", where));
           }else if(list.get(i) instanceof RuntimeFloatValue){
             return new RuntimeFloatValue(list.get(i).getFloatValue("[...]", where));
           }else if(list.get(i) instanceof RuntimeStringValue){
             return new RuntimeStringValue(list.get(i).getStringValue("[...]", where));
-          }/*else if(list.get(i) instanceof RuntimeListValue){
-            return new RuntimeListValue(list.get(i));
-          }*/else{
+          /*else if(list.get(i) instanceof RuntimeListValue){
+            return new RuntimeListValue(list.get(i));*/
+          }else if(list.get(i) instanceof RuntimeBoolValue){
+            return new RuntimeBoolValue(list.get(i).getBoolValue("[...]", where));
+          }
+
+          else{
             runtimeError("Type error for [...]", where);
           }
+
         }else{
-          runtimeError("List index " + i + " out of range!", where);
+          runtimeError("List indexs " + i + " out of range!", where);
         }
-
-
-      }else{
+      }
+      else{
         runtimeError("A list index must be an integer", where);
       }
 
+
       return null;
+    }
+
+    @Override
+    public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where) {
+      if(inx instanceof RuntimeIntValue){
+        Integer i = (int) (long) inx.getIntValue("[...]", where);
+        if(i < list.size()){
+          list.set(i, val);
+        }else{
+          runtimeError("List index " + i + " out of range!", where);
+        }
+      }
+      else{
+        runtimeError("A list index must be an integer", where);
+      }
+    }
+
+    @Override
+    public RuntimeValue evalLen(AspSyntax where){
+      return new RuntimeIntValue(new Long(list.size()));
     }
 }

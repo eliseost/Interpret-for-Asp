@@ -43,6 +43,33 @@ public class RuntimeStringValue extends RuntimeValue {
     }
 
     @Override
+    public long getIntValue(String what, AspSyntax where){
+      try{
+        return Long.parseLong(stringLit);
+      }catch (java.lang.NumberFormatException e){
+        runtimeError("Cannot convert string to long", where);
+      }
+      return 0;
+    }
+
+    @Override
+    public double getFloatValue(String what, AspSyntax where){
+      try{
+        return Double.parseDouble(stringLit);
+      }catch (java.lang.NumberFormatException e){
+        runtimeError("Cannot convert string to double", where);
+      }
+      return 0.0;
+    }
+
+
+
+    @Override
+    public RuntimeValue evalLen(AspSyntax where){
+      return new RuntimeIntValue(new Long(stringLit.length()));
+    }
+
+    @Override
     public RuntimeValue evalAdd(RuntimeValue v, AspSyntax where){
       if(v instanceof RuntimeStringValue){
         return new RuntimeStringValue(stringLit + v.getStringValue("+ operand", where));
@@ -70,7 +97,8 @@ public class RuntimeStringValue extends RuntimeValue {
     @Override
     public RuntimeValue evalEqual(RuntimeValue v, AspSyntax where) {
       if(v instanceof RuntimeStringValue){
-        return new RuntimeBoolValue(stringLit == v.getStringValue("== operand", where));
+        RuntimeValue n = new RuntimeBoolValue(stringLit == v.getStringValue("== operand", where));
+        return new RuntimeBoolValue(stringLit.equals(v.getStringValue("== operand", where)));
       }else if(v instanceof RuntimeNoneValue){
         return new RuntimeBoolValue(false);
       }

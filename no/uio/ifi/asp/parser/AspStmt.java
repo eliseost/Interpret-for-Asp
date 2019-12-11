@@ -43,7 +43,11 @@ public class AspStmt extends AspSyntax{
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-//-- Must be changed in part 4:
+    if(small == null){
+      comp.eval(curScope);
+    }else{
+      small.eval(curScope);
+    }
 return null;
   }
 }

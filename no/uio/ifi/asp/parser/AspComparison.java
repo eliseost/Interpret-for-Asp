@@ -60,29 +60,32 @@ public class AspComparison extends AspSyntax {
             v = v.evalLessEqual(next, this);
             if(! v.getBoolValue("less equal operand", this)){
               return v;
-            }
-            break;
+            }break;
+
           case greaterEqualToken:
           v = v.evalGreaterEqual(next, this);
           if(! v.getBoolValue("greater equal operand", this)){
             return v;
-          }
+          }break;
+
           case doubleEqualToken:
           v = v.evalEqual(next, this);
           if(! v.getBoolValue("double equal operand", this)){
             return v;
           } break;
+
           case greaterToken:
-          v = v.evalGreaterEqual(next, this);
+          v = v.evalGreater(next, this);
           if(! v.getBoolValue("greater operand", this)){
             return v;
           } break;
-          case lessToken:
-          v = v.evalLessEqual(next, this);
 
+          case lessToken:
+          v = v.evalLess(next, this);
           if(! v.getBoolValue("less operand", this)){
             return v;
           } break;
+
           default:
               Main.panic("Illegal comp opr: " + k + "!");
         }

@@ -23,6 +23,11 @@ public class RuntimeDictDisplay extends RuntimeValue {
       return (dict.size() > 0);
     }
 
+    @Override
+    public RuntimeValue evalLen(AspSyntax where){
+      return new RuntimeIntValue(new Long(dict.size()));
+    }
+
 
     @Override
     public String toString() {
@@ -66,14 +71,33 @@ public class RuntimeDictDisplay extends RuntimeValue {
     public RuntimeValue evalSubscription(RuntimeValue v, AspSyntax where){
       if(v instanceof RuntimeStringValue){
         String s = v.getStringValue("[...]", where);
-        long value = 1;
         String ns = "'" + s + "'";
-        if(dict.get(s) == null){
+        RuntimeValue item = dict.get(s);
+        if(item == null){
           runtimeError("Dictionary key " + ns + " undefined!", where);
         }else{
-          return new RuntimeIntValue(dict.get(s).getIntValue("[...]", where));
+          return item;
         }
       }
+      else{
+        runtimeError("A dictionary key must be a string", where);
+      }
+
+
       return null;
+    }
+
+    @Override
+    public void evalAssignElem(RuntimeValue inx, RuntimeValue val, AspSyntax where){
+      if(inx instanceof RuntimeStringValue){
+        if(dict.replace(inx.toString(), val) == null){
+          dict.put(inx.toString(), val);
+        }else{
+          dict.replace(inx.toString(), val);
+        }
+      }
+      else{
+        runtimeError("A dictionary key must be a string", where);
+      }
     }
 }

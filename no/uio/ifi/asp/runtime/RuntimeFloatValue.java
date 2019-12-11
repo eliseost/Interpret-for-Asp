@@ -28,10 +28,11 @@ public class RuntimeFloatValue extends RuntimeValue {
       return (floatValue > 0.0);
     }
 
-    /*@Override
-    public double getIntValue(String what, AspSyntax where){
-      return intValue;
-    }*/
+    @Override
+    public long getIntValue(String what, AspSyntax where){
+      long value = (long) floatValue;
+      return value;
+    }
 
     @Override
     public double getFloatValue(String what, AspSyntax where){

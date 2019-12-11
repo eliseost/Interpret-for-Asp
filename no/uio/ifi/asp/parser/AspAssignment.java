@@ -45,10 +45,38 @@ public class AspAssignment extends AspSyntax{
     expr.prettyPrint();
   }
 
+
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-//-- Must be changed in part 4:
-return null;
+    RuntimeValue a = null;
+
+    RuntimeValue ind = null;
+    RuntimeValue value = expr.eval(curScope);
+    
+
+    if(subs.size() == 0){
+      curScope.assign(name.na, value);
+      trace(name.na + " = " + value.showInfo());
+    }
+
+    else if(subs.size() == 1){
+      a = name.eval(curScope);
+      ind = subs.get(0).eval(curScope);
+      a.evalAssignElem(ind, value, this);
+      trace(name.na + "[" + ind + "]" + " = " + value.showInfo());
+    }
+    else{
+      for (int i = 0; i < subs.size()-1; i++) {
+        a = name.eval(curScope);
+        ind = subs.get(i).eval(curScope);
+        a = a.evalSubscription(ind, this);
+      }
+      a.evalAssignElem(ind, value, this);
+      trace(name.na + "[" + ind + "]" + " = " + value.showInfo());
+    }
+
+return a;
   }
+
 
 }

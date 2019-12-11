@@ -52,7 +52,13 @@ public class AspArgument extends AspSyntax {
 
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-      RuntimeValue v = expr.get(0).eval(curScope);
+      ArrayList<RuntimeValue> l = new ArrayList<RuntimeValue>();
+      for (int i = 0; i < expr.size(); i++) {
+        AspExpr e = expr.get(i);
+        l.add(expr.get(i).eval(curScope));
+      }
+
+      RuntimeListDisplay v = new RuntimeListDisplay(l);
 	    return v;
     }
 }

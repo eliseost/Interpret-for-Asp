@@ -8,7 +8,6 @@ import no.uio.ifi.asp.scanner.*;
 import static no.uio.ifi.asp.scanner.TokenKind.*;
 
 public class AspFuncDef extends AspCompStmt{
-  AspExpr expr;
   ArrayList<AspName> names = new ArrayList<>();
   AspSuite suite;
 
@@ -69,7 +68,28 @@ public class AspFuncDef extends AspCompStmt{
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-//-- Must be changed in part 4:
+    String funcname = names.get(0).na;
+
+    RuntimeScope funcScope = new RuntimeScope(curScope);
+    RuntimeFunc func = new RuntimeFunc(this, funcScope);
+    curScope.assign(funcname, func);
+    //Assign funcname til funksjonen.
+    //Lag RuntimeFunc her
+    trace("def " + funcname);
+
+
 return null;
+  }
+
+  public ArrayList<AspName> getList(){
+    return names;
+  }
+
+  public AspSuite getBody(){
+    return suite;
+  }
+
+  public AspName getFuncName(){
+    return names.get(0);
   }
 }

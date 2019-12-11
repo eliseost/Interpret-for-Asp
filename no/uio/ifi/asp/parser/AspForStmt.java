@@ -45,7 +45,22 @@ public class AspForStmt extends AspCompStmt{
 
   @Override
   public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
-//-- Must be changed in part 4:
+    RuntimeValue list1 = expr.eval(curScope);
+    RuntimeValue value = null;
+    //String nValue = n.toString();
+    RuntimeIntValue j = null;
+    Long l = null;
+    //if(list1 instanceof RuntimeListDisplay){
+      for (int i = 0; i < list1.listSize(); i++) {
+        l = new Long(i);
+        j = new RuntimeIntValue(l);
+        value = list1.evalSubscription(j, this);
+        curScope.assign(name.na, value);
+        trace("for #" + (i+1) + ": " + name.na + " = " + value + ":");
+        suite.eval(curScope);
+
+      //}
+    }
 return null;
   }
 }

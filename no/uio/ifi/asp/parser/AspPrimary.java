@@ -40,13 +40,20 @@ public class AspPrimary extends AspSyntax {
     @Override
     public RuntimeValue eval(RuntimeScope curScope) throws RuntimeReturnValue {
       RuntimeValue v = atom.eval(curScope);
-      RuntimeValue sub = null;
+      RuntimeValue suff = null;
       for (int i = 0; i < primsuff.size(); i++) {
         if(primsuff.get(i).sub != null){
-          sub = primsuff.get(i).eval(curScope);
-          v = v.evalSubscription(sub, this);
+          //Er ikke sub lik null har vi en eller flere subscritions
+          suff = primsuff.get(i).eval(curScope);
+          v = v.evalSubscription(suff, this);
+        }else{
+          //Det er arguments, altså et funksjonskall
+          suff = primsuff.get(i).eval(curScope);
+          //Suff er RuntimeListDisplay
+          trace("Call function " + v.showInfo() + " with params " + suff.showInfo());
+
+          v = v.evalFuncCall(suff.getList(), this);
         }
-        //v = primsuff.get(i).eval(curScope);
       }
 	    return v;
     }

@@ -13,6 +13,13 @@ public abstract class RuntimeValue {
     }
 
     // For parts 3 and 4:
+    public int listSize(){
+      return 0;
+    }
+
+    public ArrayList<RuntimeValue> getList(){
+      return null;
+    }
 
     public boolean getBoolValue(String what, AspSyntax where) {
 	runtimeError("Type error: "+what+" is not a Boolean!", where);
@@ -137,7 +144,7 @@ public abstract class RuntimeValue {
 	runtimeError("Assigning to an element not allowed for "+typeName()+"!", where);
     }
 
-    public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams, 
+    public RuntimeValue evalFuncCall(ArrayList<RuntimeValue> actualParams,
 				     AspSyntax where) {
 	runtimeError("'Function call (...)' undefined for "+typeName()+"!", where);
 	return null;  // Required by the compiler!
