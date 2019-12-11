@@ -32,9 +32,8 @@ beregne resultatverdien. Man må også sjekke at uttrykket ikke har typefeil.
 1.4.4 Del 4: Full interpretering
 Siste del er å kunne evaluere alle mulige Asp-programmer, dvs programmer
 med funksjonsdefinisjoner samt setninger med løkker, tester og uttrykk. 
-Del 4 er ikke ferdig på dette tidspunkt. 
 
 For å kjøre interpreten skrives: $java -jar asp.jar [-test{expr|parser|scanner}] filename.asp, 
-alt ettersom det er, scanner, parser eller utrykk som vil testes. 
+alt ettersom det er, scanner, parser eller utrykk som vil testes. For full interpretering skrives kun: $java -jar asp.jar filename.asp
 
 Testprogrammer finnes her: http://inf2100.at.ifi.uio.no/oblig/
